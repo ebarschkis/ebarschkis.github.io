@@ -3,18 +3,234 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="My solution to Erdős Problem #347: a nearly doubling sequence whose subset sums have density one after finite deletions. Basic and advanced explanations.">
   <meta name="theme-color" content="#942c36">
+  <meta property="og:title" content="Erdős Problem #347 · Enrique Barschkis">
+  <meta property="og:description" content="Almost doubling, with enough spare ones to reach almost every integer. Read the basic explanation or the complete proof.">
   <title>Erdős Problem #347 · Enrique Barschkis</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css" integrity="sha384-3rdsX6e5mueWyoweR9NIVmtEsUkokpBT/0ALqKKIBMr9j4qhHkaIkAcGgsE6uVlp" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/article.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js" integrity="sha384-QFFtAGzvvj+bfgCGxXJlNZZR1nXEZgvG8tDLCCY1F19xl20WlfTYgguB4VcNdxYk" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+  <script defer src="assets/article.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="document-page">
+  <div class="document-page article-page">
     <header class="document-header"><a href="index.html#articles">← Enrique Barschkis</a><span>Articles / 2026</span></header>
     <main id="main">
-      <article>
-        <h1>Erdős Problem #347</h1>
+      <article class="math-article" data-math-root>
+        <div class="article-header">
+          <div class="document-kicker">Additive number theory</div>
+          <h1>Erdős Problem #347</h1>
+          <p class="article-subtitle">A sequence that nearly doubles, and still reaches almost every integer.</p>
+          <p class="article-meta">Enrique Barschkis · Based on my January 21, 2026 paper</p>
+        </div>
+        <div class="reading-level" aria-label="Article difficulty" aria-describedby="reading-level-help">
+          <button type="button" id="tab-basic" data-article-level="basic">basic</button>
+          <button type="button" id="tab-advanced" data-article-level="advanced">advanced</button>
+        </div>
+        <p class="reading-level-help" id="reading-level-help">Choose your level of math mumbo jumbo.</p>
+        <noscript><p>Both versions are shown below. Enable JavaScript to switch between them and render the mathematical notation.</p></noscript>
+        <div class="article-panel" id="article-basic">
+
+<div class="version-label">Basic version</div>
+<p>I found this problem by clicking the random-problem button on erdosproblems.com and reading the problems and their comment sections. Eventually I landed on <a href="https://www.erdosproblems.com/347">#347</a>. It sounded like a question about adding numbers. It was, although that description did a good job of hiding the trouble.</p>
+<p>Roughly three months after the October 2025 discussion, I wrote down a solution, building on ideas from Wouter van Doorn and Terence Tao. You can understand the central trick with binary numbers and a very small piece of deliberate cheating. The cheating is legal; I checked.</p>
+
+<h2>A list of numbers, and a destructive friend</h2>
+<p>Start with</p>
+<div class="math-block">\[1,\ 2,\ 4,\ 8,\ 16,\ 32,\ldots\]</div>
+<p>Choose some numbers from this list and add them, using each number at most once. For example, \(13=8+4+1\). Every whole number can be made this way. This is how binary notation works.</p>
+<p>Now let a friend cross out the \(1\). Every remaining number is even, so you have lost every odd total. Half the numbers disappear because your friend removed one entry. Cross out \(1,2,4\), and every total is a multiple of \(8\). Binary is feeling less impressive.</p>
+<p>Erdős asked whether we could design a better list with two properties. The multiplier from one entry to the next should get as close as we like to \(2\). And after any finite collection of entries is crossed out, we should still be able to make almost every whole number.</p>
+<p>“Almost every” has a precise meaning. Look at the numbers from \(1\) to a large cutoff \(x\). The fraction we can make must approach \(100\%\) as \(x\) grows:</p>
+<div class="math-block">\[
+\frac{\text{numbers we can make between }1\text{ and }x}{x}
+\longrightarrow1.
+\]</div>
+<p>We are allowed to miss infinitely many numbers. For comparison, the squares are infinite, but only about \(\sqrt{x}\) of the first \(x\) numbers are squares, so their percentage tends to zero. This is the kind of thin set of exceptions the problem permits.</p>
+
+<h2>The trick is to keep a spare one</h2>
+<p>Suppose I have a way to get close to a target, but my total is three too small. I would like to increase it by one in three different places. Adding an actual \(1\) to the list will not help for long: my destructive friend is still here.</p>
+<p>Instead, I hide a one-unit adjustment inside each of many separate groups. Here is a small example:</p>
+<div class="math-block">\[
+10,\quad20,\quad40,\quad71.
+\]</div>
+<p>I can choose \(10+20+40=70\), or I can choose \(71\) instead. Both choices use this group alone. Swapping the first choice for the second adds exactly one to the total.</p>
+<p>With several groups built the same way, I can make several independent adjustments. Three groups can fix a shortage of three. The earlier sum is replaced inside each group, so I never count a number twice.</p>
+<p>This was the central idea in Tao’s comment. It gives us a route to a proof: get close to the target, find enough groups offering a spare one, and use them to close the gap.</p>
+
+<h2>How a group gets us close</h2>
+<p>The first three entries \(10,20,40\) can make every multiple of \(10\) from \(0\) to \(70\). Including \(71\) also gives \(71,81,91,\ldots,141\).</p>
+<p>For the initial approximation, I put \(71\) aside. The remaining choices are</p>
+<div class="math-block">\[
+0,10,20,30,40,50,60,70,81,91,\ldots,141.
+\]</div>
+<p>These are well spaced: their gaps are at most \(11\). To approximate a target at this scale, pick the largest choice that does not go over it. Up through \(145\), the leftover is at most \(10\). For example, a target of \(80\) leaves \(10\) after choosing \(70\); a target of \(100\) leaves \(9\) after choosing \(91\).</p>
+<p>The \(70\) choice is special because I can later replace it by the reserved \(71\). A choice of \(60\) does not have that same privilege. So being close is only half the job: I also need enough of those special choices.</p>
+<p>The actual construction uses groups like this at larger and larger scales. Working from the biggest group downward, I choose a contribution without overshooting, then pass the leftover to the next smaller group. This is a version of the greedy method used to write numbers in a number system.</p>
+<p>Once I reach the smallest group still available after the deletions, the leftover is bounded by a fixed number \(D\). Larger targets do not increase that bound. They give me more groups to work with.</p>
+
+<h2>Why the groups must grow slowly</h2>
+<p>There is a catch. Longer groups look more and more like ordinary doubling: the one unusual final entry becomes a smaller disturbance. But a longer group has more possible contributions, and only one is the special choice that offers a spare one.</p>
+<p>I therefore need the groups to grow long enough to approach doubling, but slowly enough that the correction opportunities do not disappear too quickly. The formula in my paper uses a logarithm of a logarithm. Its job is to make the growth extremely slow. It is not there to intimidate anyone, although it does have that effect on first contact.</p>
+<p>You do not need that formula to follow the argument. Remember the trade-off: improving the doubling pattern makes each correction opportunity rarer, so we must improve it patiently.</p>
+
+<h2>Almost every target has enough spare ones</h2>
+<p>Some targets may produce too few special choices. I do not have to force those targets to cooperate. I have to prove they become a vanishing fraction of all targets.</p>
+<p>Our toy group has \(15\) ordinary choices, of which \(14\) are non-special. The next numerical scale is about \(14.5\) times bigger. If we kept this group size fixed, then after \(r\) groups, the number of descriptions that avoid the special choice entirely, relative to the size of the range, would shrink roughly like</p>
+<div class="math-block">\[\left(\frac{14}{14.5}\right)^r.\]</div>
+<p>That fraction tends to zero: the descriptions avoiding all repairs lose a little ground at every group. Allowing some special choices adds more descriptions, but we only need to count those with fewer than the fixed number \(D\). The extra ways of placing those few choices still cannot keep up in the long run.</p>
+<p>In the actual construction the group sizes change. I chose their slow growth precisely so that this counting advantage survives. The advanced version proves that the fraction of targets with too few repairs still tends to zero, both at the group boundaries and between them.</p>
+<p>This is a counting argument, not a claim that the greedy choices are random. Each target has a definite description. By counting every description with too few correction opportunities, we get an upper bound on the number of targets that might fail.</p>
+<p>For almost every sufficiently large target, there are at least \(D\) special choices. If the leftover is \(d\), with \(d\le D\), switch \(d\) of those choices to their one-larger alternatives. The total is now exact.</p>
+
+<h2>Why deleting numbers does not break it</h2>
+<p>Any finite collection of crossed-out entries affects only finitely many groups. Beyond the last affected group, all the groups are intact. I ignore everything before that point and run the same argument.</p>
+<p>Deleting more entries may make the error bound \(D\) much bigger. That can delay how far out we have to look before the missing fraction is small, but it cannot stop that fraction from tending to zero. There are always more intact groups further along.</p>
+<p>That gives the answer Erdős asked for: yes, the list can approach doubling and still represent a density-one set after any finite deletion.</p>
+
+<h2>What was new, and why I liked it</h2>
+<p>Earlier work could achieve the stronger goal of representing every sufficiently large number after deletions, with growth approaching the golden ratio, about \(1.618\). But <a href="https://users.renyi.hu/~p_erdos/1981-02.pdf">Burr and Erdős’s work</a> also rules out that stronger property when the limiting growth ratio exceeds the golden ratio. Allowing a tiny proportion of missing numbers makes room to reach \(2\).</p>
+<p>Van Doorn proposed approaching \(2\) slowly, and Tao supplied the groups with one-unit repairs and the counting idea. My contribution was to make the growing-group construction explicit and complete the estimates. The advanced version gives the proof, including why the estimate works between the convenient group endpoints.</p>
+<p>I like that the useful feature is an almost-duplicate sum: \(70\) and \(71\), for example. Usually two choices giving nearly the same answer seem wasteful. Here, that small difference lets us correct an approximation exactly. It is a technique worth trying whenever a construction gets close to what we need but leaves a bounded error.</p>
+
+        </div>
+        <div class="article-panel" id="article-advanced">
+
+<div class="version-label">Advanced version</div>
+<p>I found <a href="https://www.erdosproblems.com/347">Erdős Problem #347</a> by clicking the random-problem button on erdosproblems.com and reading whatever came up, including the comments. This is a remarkably effective way to turn “I’ll have a quick look” into a different afternoon.</p>
+<p>The question asks for a sequence that grows almost like powers of two, but whose subset sums still cover almost every integer after any finite number of terms are removed. Ordinary binary expansion fails that last test immediately. The way around it is to build small, local choices that change a sum by exactly one.</p>
+<p>By January 21, 2026, roughly three months after the October discussion, I had written down a construction and proof. It builds directly on ideas of Wouter van Doorn and Terence Tao. I want to explain the part that makes it work: how a supply of tiny corrections survives while the sequence approaches the largest possible limiting ratio.</p>
+<p>The proof has three parts. Build blocks with a reserved one-unit correction; use their other sums to approximate any target with a bounded remainder; then count the expansions that lack enough corrections. The delicate choice is how slowly the block lengths grow. It must improve the consecutive ratios without making the useful corrections too scarce.</p>
+
+<h2>The problem, and the obstruction</h2>
+<p>For a sequence \(A\) of positive integers, let \(P(A)\) be the set of sums obtained by choosing finitely many terms, using each available term at most once. The empty choice gives zero. We want</p>
+<div class="math-block">\[
+\frac{a_{n+1}}{a_n}\longrightarrow 2,
+\qquad
+\lim_{x\to\infty}\frac{|P(A')\cap[1,x]|}{x}=1
+\]</div>
+<p>for every cofinite subsequence \(A'\): every sequence left after deleting finitely many terms of \(A\). Density \(1\) permits infinitely many missing integers, provided their proportion tends to zero.</p>
+<p>For \(A=(1,2,4,8,\ldots)\), every nonnegative integer has a binary expansion. But delete \(1\), and every remaining sum is even. Delete the first \(r\) terms, and every sum is divisible by \(2^r\). Exact doubling has excellent coverage and terrible tolerance for deletion.</p>
+<p>There is also a counting limit. If consecutive terms eventually grow by a factor at least \(\lambda&gt;2\), the \(n\) available terms below \(a_{n+1}\) have at most \(2^n\) subset sums, while \(a_{n+1}\) grows at least as fast as a constant times \(\lambda^n\). Along these cutoffs the proportion covered tends to zero. Thus \(2\) is the boundary we should try to reach.</p>
+
+<h2>What the discussion had already supplied</h2>
+<p>A stronger requirement would be that every cofinite subsequence represents <em>every sufficiently large integer</em>, a property called strong completeness. Graham’s example \(a_n=F_n-(-1)^n\) has that property. Its growth approaches the golden ratio \(\varphi=(1+\sqrt5)/2\). Burr and Erdős showed that a limiting ratio above \(\varphi\) is incompatible with strong completeness. Their <a href="https://users.renyi.hu/~p_erdos/1981-02.pdf">1981 paper</a> leaves open what happens when the missing integers need only have density zero.</p>
+<p>The <a href="https://www.erdosproblems.com/forum/thread/347?order=oldest">October 25 discussion</a> briefly appeared to settle #347 through that old paper. Tao pointed to a theorem; van Doorn noticed that its hypothesis compared \(s_{n+2}\) with \(2s_n\), rather than \(s_{n+1}\) with \(2s_n\). One subscript had done rather too much work.</p>
+<p>Van Doorn suggested approaching \(2\) slowly. Tao then gave a block construction for growth close to \(2\), with a near-collision between two subset sums that differ by one. His sketch also explained how to count the exceptional expansions. My contribution was to choose explicitly growing block lengths and make the limiting argument work. The near-collision mechanism belongs to that earlier sketch.</p>
+
+<h2>Why a near-collision is useful</h2>
+<p>Suppose a greedy procedure gets within a fixed distance \(D\) of the target, always from below. We would be finished if its chosen block sums included at least \(D\) independent places where we could add one. This suggests constructing each block with two legal sums \(c\) and \(c+1\).</p>
+<p>Take the toy block</p>
+<div class="math-block">\[
+10,\quad20,\quad40,\quad71.
+\]</div>
+<p>The first three terms sum to \(70\); the last term is \(71\). Switching between those two choices changes the total by one and uses terms from the same block. Different blocks can be switched independently. Three such switches fix a remainder of three; we never need to reuse a term.</p>
+<p>More generally, use the block</p>
+<div class="math-block">\[
+M,\ 2M,\ \ldots,\ 2^{k-2}M,\ (2^{k-1}-1)M+1.
+\]</div>
+<p>The binary part produces all multiples \(jM\) with \(0\le j\le2^{k-1}-1\). Adding the final term produces a second, shifted row of sums. The two rows come within one at</p>
+<div class="math-block">\[
+c=(2^{k-1}-1)M,\qquad c+1.
+\]</div>
+<p>I reserve \(c+1\) for repairs and let the greedy algorithm use the other \(2^k-1\) sums as its digits. Most of those digits are spaced \(M\) apart, so they can approximate a target at scale \(M\). The special digit \(c\) also carries a one-unit correction. That is how the same block does both jobs.</p>
+
+<h2>Letting the blocks grow slowly enough</h2>
+<p>There are two competing demands. Longer blocks make the exceptional consecutive ratios closer to \(2\). But among their roughly \(2^k\) possible digits, only one supplies the reserved correction. Making the blocks long too quickly could leave too few correction opportunities. This balance is the bottleneck.</p>
+<p>I choose, for block indices \(n\ge0\),</p>
+<div class="math-block">\[
+k_n=4+\left\lceil\log_2\log_2(n+16)\right\rceil,
+\qquad q_n=2^{k_n}-2,
+\]</div>
+<div class="math-block">\[
+M_0=10,\qquad
+M_{n+1}=\left\lfloor\left(q_n+\tfrac12\right)M_n\right\rfloor.
+\]</div>
+<p>Block \(n\) is the block above with \(k=k_n\) and \(M=M_n\); concatenate the blocks to obtain \(A\). Here \(k_n\to\infty\), but \(q_n\asymp\log(n+16)\). The notation \(\asymp\) means bounded above and below by fixed positive multiples. The double logarithm is a convenient way to make those two facts hold together.</p>
+<p>The scales satisfy</p>
+<div class="math-block">\[
+q_nM_n&lt;M_{n+1}&lt;(q_n+1)M_n.
+\]</div>
+<p>The entries are increasing. Within a block the ratios are exactly \(2\), apart from its last step; that last ratio and the ratio into the next block are \(2+O(2^{-k_n})+O(M_n^{-1})\). Both errors vanish. This proves \(a_{j+1}/a_j\to2\); the more interesting work is still the coverage.</p>
+
+<h2>Approximate first, then repair</h2>
+<p>Fix any cofinite subsequence \(A'\). Past some block \(n_0\), every term survives. It is enough to work with this tail \(T\), since \(P(T)\subseteq P(A')\). Write \(D=M_{n_0}\). The number \(D\) may be huge, but it stays fixed while the target grows.</p>
+<p>Put \(c_n=(2^{k_n-1}-1)M_n\), and define the ordinary digits by</p>
+<div class="math-block">\[
+\begin{aligned}
+B_n={}&\{jM_n:0\le j\le2^{k_n-1}-1\}\\
+&{}\cup\{jM_n+1:2^{k_n-1}\le j\le q_n\}.
+\end{aligned}
+\]</div>
+<p>There are \(q_n+1\) digits. They include \(c_n\) and omit its spare \(c_n+1\). Their largest member is \(q_nM_n+1&lt;M_{n+1}\). Consecutive gaps are at most \(M_n+1\), and the final gap up to \(M_{n+1}\) is at most \(M_n\). Consequently, for any integer \(0\le x\le M_{n+1}\), choosing the largest digit at most \(x\) leaves a remainder between \(0\) and \(M_n\). In the gap of length \(M_n+1\), integrality gives that same bound.</p>
+<p>For \(0\le m\le M_{N+1}\), apply this from block \(N\) down to \(n_0\). We obtain</p>
+<div class="math-block">\[
+m=\sum_{n=n_0}^{N}b_n+d,
+\qquad b_n\in B_n,\qquad 0\le d\le D.
+\]</div>
+<p>If at least \(D\) of these digits equal \(c_n\), switch exactly \(d\) of them to \(c_n+1\). Every block still contributes a legal subset sum, and the total becomes exactly \(m\).</p>
+<p>So we have reduced the whole problem to counting expansions with fewer than \(D\) special digits. A bounded remainder is harmless if almost every long expansion offers enough places to repair it.</p>
+
+<h2>Why the exceptions lose the counting race</h2>
+<p>A block has \(q_n\) non-special digits, while its scale grows by approximately \(q_n+\tfrac12\). That small advantage in scale is the source of the density estimate. It compounds across blocks, even though the relative advantage per block tends to zero.</p>
+<p>Let \(E_N\) count integers in \([0,M_{N+1}]\) outside \(P(T)\), and put</p>
+<div class="math-block">\[
+S_N=\sum_{n=n_0}^{N}\frac1{q_n}.
+\]</div>
+<p>The greedy algorithm assigns a unique digit vector and remainder to each target. This assignment is injective because their sum recovers the target. If the special digits occur exactly at a set \(I\), the other positions have \(\prod_{n\notin I}q_n\) choices. Summing over fewer than \(D\) special positions, and over the \(D+1\) possible remainders, gives</p>
+<div class="math-block">\[
+E_N\le(D+1)\left(\prod_{n=n_0}^{N}q_n\right)
+\sum_{j=0}^{D-1}\frac{S_N^j}{j!}.
+\]</div>
+<p>The only standard estimate here is that a sum of products over distinct \(j\)-element sets is at most \(S_N^j/j!\). We count all such vectors, including ones the greedy algorithm never produces; an upper bound is all we need. In particular, we do <em>not</em> assume that greedy digits are independent random choices.</p>
+<p>We can absorb the rounding in the recurrence with a little room to spare. Since \(M_n\ge10\),</p>
+<div class="math-block">\[
+M_{n+1}\ge(q_n+\tfrac14)M_n.
+\]</div>
+<p>Iterating and dividing the counting bound by \(M_{N+1}\) therefore yields</p>
+<div class="math-block">\[
+\frac{E_N}{M_{N+1}}
+\le\frac{D+1}{D}
+\left(\prod_{n=n_0}^{N}\frac{q_n}{q_n+\tfrac14}\right)
+\sum_{j=0}^{D-1}\frac{S_N^j}{j!}
+\]</div>
+<div class="math-block">\[
+\le\frac{D+1}{D}\,e^{-S_N/8}
+\sum_{j=0}^{D-1}\frac{S_N^j}{j!}.
+\]</div>
+<p>The last step uses \(\log(1+1/(4q_n))\ge1/(8q_n)\). Because \(q_n\asymp\log(n+16)\), we have \(S_N\asymp N/\log N\to\infty\). The sum on the right is a polynomial of fixed degree \(D-1\). Exponential decay beats that polynomial, however unreasonable \(D\) initially looks.</p>
+<p>This is the role of slow growth: the individual correction opportunities become rarer, but their accumulated contribution \(S_N\) keeps increasing fast enough to make the bad expansions negligible.</p>
+
+<h2>Between the block endpoints</h2>
+<p>There is one final point to check. A density statement concerns every large cutoff, not only the convenient values \(M_{N+1}\). The ratio between successive cutoffs is unbounded, so convergence along that sequence alone would not finish the proof.</p>
+<p>Let \(E(x)\) count missing integers up to \(x\), and choose \(N\) so that \(M_N\le x&lt;M_{N+1}\). Then</p>
+<div class="math-block">\[
+\frac{E(x)}x
+\le\frac{E_N}{M_N}
+=\frac{M_{N+1}}{M_N}\frac{E_N}{M_{N+1}}.
+\]</div>
+<p>The extra factor is \(O(\log N)\). Our preceding bound is at most a fixed polynomial in \(N\), times \(\exp(-cN/\log N)\) for some \(c&gt;0\), so this extra factor cannot prevent convergence to zero. This supplies the passage from block endpoints to full asymptotic density.</p>
+<p>Thus \(P(T)\) has density \(1\). Since the deleted terms were arbitrary and \(P(T)\subseteq P(A')\), the same holds for every cofinite \(A'\). The answer to #347 is yes.</p>
+
+<h2>What I take from this proof</h2>
+<p>The construction reaches the doubling boundary for density-one coverage, although strong completeness encounters the lower golden-ratio obstruction. It separates two notions of “almost everything” that are easy to confuse: finitely many exceptions and a vanishing proportion of exceptions.</p>
+<p>The reusable technique is to combine a coarse representation with many disjoint, exact local repairs. The greedy expansion gets close; the near-collisions supply the repairs; counting shows that the expansions without enough repairs are rare. In other additive constructions, I would look for a similarly cheap way to change a representation by a small prescribed amount.</p>
+
+        </div>
+        <aside class="article-sources" aria-labelledby="sources-heading">
+          <h2 id="sources-heading">Sources &amp; acknowledgments</h2>
+          <p>I thank Terence Tao and Wouter van Doorn for the ideas this construction builds on. The exposition here expands the proof in my paper, <cite>A Sequence with Doubling Ratio and Full-Density Subset Sums</cite> (January 21, 2026), and spells out the passage from block endpoints to arbitrary cutoffs.</p>
+          <ul>
+            <li><a href="https://www.erdosproblems.com/347">Problem #347</a> and the <a href="https://www.erdosproblems.com/forum/thread/347?order=oldest">original discussion</a>, including the October 2025 sketches and January 2026 proof.</li>
+            <li>S. A. Burr and P. Erdős, <a href="https://users.renyi.hu/~p_erdos/1981-02.pdf"><cite>Completeness Properties of Perturbed Sequences</cite></a>, <cite>Journal of Number Theory</cite> 13 (1981), 446–455. See Theorems 3.1 and 3.5 and the discussion of Graham’s example.</li>
+            <li><a href="https://github.com/ebarschkis/ErdosProblem/blob/main/Problem347/Formalization.lean">Lean formalization</a> in my Erdős problems repository.</li>
+          </ul>
+        </aside>
       </article>
     </main>
     <footer class="footer"><div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="index.html#articles">Back to articles ↑</a></div><div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div></footer>
