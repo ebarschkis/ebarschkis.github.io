@@ -69,7 +69,7 @@ h2 { margin: 0; color: var(--blue); font: 600 16px/1.5 var(--display); text-tran
 p { margin: 0 0 10px; }
 .bio p { margin-bottom: 12px; }
 .bio p:last-child { margin-bottom: 0; }
-.bio p:first-child { font-size: 21px; }
+.bio p:first-child { font-size: 21px; text-align: center; }
 .bio p + p { color: #524f46; }
 .about-more { margin-top: 12px; }
 .about-more a:hover .link-label > span, .about-more a:focus-visible .link-label > span { visibility: hidden; }
