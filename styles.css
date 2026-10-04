@@ -87,6 +87,7 @@ p { margin: 0 0 10px; }
 .hover-arrow { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity .18s ease; }
 .animated-link:hover .link-label, .animated-link:focus-visible .link-label { transform: translateX(1.5em); }
 .animated-link:hover .hover-arrow, .animated-link:focus-visible .hover-arrow { opacity: 1; }
+.animated-link:hover .link-arrow, .animated-link:focus-visible .link-arrow { visibility: hidden; }
 .entry-date { flex-shrink: 0; color: var(--muted); font: 600 11px/1.5 var(--display); letter-spacing: .07em; text-transform: uppercase; }
 .entry p { font-size: 16px; line-height: 1.5; margin: 4px 0 0; color: #524f46; }
 .note-entry { display: grid; grid-template-columns: 100px 1fr; gap: 18px; align-items: baseline; padding: 8px 0; }
