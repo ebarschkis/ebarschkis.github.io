@@ -72,6 +72,7 @@ p { margin: 0 0 10px; }
 .bio p:first-child { font-size: 21px; }
 .bio p + p { color: #524f46; }
 .about-more { margin-top: 12px; }
+.about-more a:hover .link-label > span, .about-more a:focus-visible .link-label > span { visibility: hidden; }
 .empty-state { color: var(--muted); font-size: 16px; font-style: italic; margin-bottom: 0; }
 .entry-list { list-style: none; margin: 0; padding: 0; }
 .entry { padding: 11px 0 12px; border-bottom: 1px solid var(--line); }
