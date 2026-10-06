@@ -31,10 +31,10 @@
         </aside>
         <section id="problem" aria-labelledby="problem-heading">
           <h2 id="problem-heading">1.) What was the problem?</h2>
-          <p>Paul Erdős asked whether there exists an increasing sequence of integers \(a_1\leq a_2\leq a_3\leq \cdots\) whose terms roughly double:</p>
+          <p>So the legendary <a href="https://en.wikipedia.org/wiki/Paul_Erd%C5%91s">Paul Erdős</a> and <a href="https://en.wikipedia.org/wiki/Ronald_Graham">Ronald Graham</a> conjectured in their 1979 paper "<a href="https://www.renyi.hu/~p_erdos/1979-07.pdf">Old and new problems and results in combinatorial number theory</a>" whether there exists an growing sequence of integers \(a_1\leq a_2\leq a_3\leq \cdots\) whose terms roughly double:</p>
           <div class="math-block">\[\lim \frac{a_{n+1}}{a_n}=2\]</div>
-          <p>Now remove any finite collection of its terms. We can take any finite number of the suriving terms (even just a single one) and add them up, using each term at most once. Let \(S\) contain every positive integer we can make this way.</p>
-          <p>We want \(S\) to cover almost all the positive integers. To see what that means, count how many of the numbers \(1,\ldots,N\) belong to \(S\), then divide by \(N\). As we count further, that fraction should approach 1:</p>
+          <p>Now let's remove any finite collection of the sequence's terms, then take any finite number of the suriving terms (a single one suffices as well) and then add them up using each term at most once. Let \(S\) contain every positive integer we can make this way.</p>
+          <p>We now want \(S\) to cover <strong>almost</strong> all the positive integers (keep in mind "almost all integers"). To see what that means, count how many of the numbers \(1,\ldots,N\) belong to \(S\), then divide by \(N\). As we count further, that fraction should approach 1:</p>
           <div class="math-block">\[
 \lim_{N\to\infty}\frac{|S\cap\{1,\ldots,N\}|}{N}=1.
 \]</div>
