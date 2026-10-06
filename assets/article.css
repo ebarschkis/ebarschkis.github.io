@@ -1,6 +1,7 @@
 .math-article { position: relative; }
 .math-article > section { margin-top: 32px; }
 .math-article > section > h2 { margin-top: 0; }
+.article-image { display: block; width: 100%; height: auto; margin: 0 0 28px; }
 
 /* The prelude stays in the reading flow until there is room beside it. */
 .article-prelude { margin: -5px 0 24px; font-size: 16px; line-height: 1.65; }
