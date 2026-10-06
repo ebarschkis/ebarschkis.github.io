@@ -1,93 +1,14 @@
-/* Long-form articles share the site's paper, ink, and display type. */
-.article-page { width: min(760px, calc(100% - 48px)); }
-.article-page .article-header { margin-bottom: 28px; }
-.article-page .article-header h1 { margin-bottom: 16px; }
-.article-subtitle { max-width: 34em; color: #524f46; font-size: 21px; line-height: 1.5; }
-.article-meta { color: var(--muted); font: 600 11px/1.7 var(--display); letter-spacing: .07em; text-transform: uppercase; }
-
-/* Without JavaScript both versions remain readable, with no inactive controls. */
-.reading-level, .reading-level-help { display: none; }
-.reading-level.is-enhanced {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 30px 0 0;
-  border: 1px solid var(--line);
-  padding: 4px;
-  gap: 4px;
-}
-.reading-level.is-enhanced + .reading-level-help { display: block; }
-.reading-level button {
-  appearance: none;
-  border: 0;
-  min-height: 46px;
-  padding: 10px 18px;
-  background: transparent;
-  color: var(--muted);
-  font: 600 13px/1.5 var(--display);
-  text-transform: lowercase;
-  letter-spacing: .08em;
-  cursor: pointer;
-  transition: background-color .15s ease, color .15s ease;
-}
-.reading-level button[data-article-level="basic"] { --level-color: var(--blue); }
-.reading-level button[data-article-level="advanced"] { --level-color: var(--red); }
-.reading-level button:hover { color: var(--level-color); background: rgba(34, 43, 61, .05); }
-.reading-level button[aria-selected="true"] { color: var(--paper); background: var(--level-color); }
-.reading-level button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.article-page article .reading-level-help { margin: 9px 0 34px; color: var(--muted); font-size: 14px; text-align: center; }
-
-.article-panel { margin: 0; outline-offset: 8px; }
-.article-panel[hidden] { display: none !important; }
-.article-panel:focus { outline: none; }
-.article-panel:focus-visible { outline: 2px solid var(--line); }
-.article-panel > section { margin-top: 38px; }
-.article-page .article-panel h2 { margin: 38px 0 15px; font-size: 18px; line-height: 1.45; letter-spacing: .065em; }
-.article-page .article-panel h3 { margin: 26px 0 12px; color: var(--blue); font: 600 17px/1.5 var(--display); }
-.article-page .article-panel p { margin-bottom: 19px; }
-.article-panel ol, .article-panel ul { padding-left: 1.4em; margin: 18px 0 24px; }
-.article-panel li { padding-left: .2em; }
-.article-panel .version-label { margin-bottom: 18px; color: var(--muted); font: 600 11px/1.5 var(--display); letter-spacing: .1em; text-transform: uppercase; }
-.article-panel .theorem, .article-panel .idea-box {
-  border-left: 3px solid var(--blue);
-  background: rgba(36, 62, 116, .035);
-  padding: 17px 20px;
-  margin: 24px 0;
-}
-#article-advanced .theorem, #article-advanced .idea-box { border-left-color: var(--red); background: rgba(148, 44, 54, .035); }
-.article-panel .theorem > :first-child, .article-panel .idea-box > :first-child { margin-top: 0; }
-.article-panel .theorem > :last-child, .article-panel .idea-box > :last-child { margin-bottom: 0; }
-.article-panel .proof-label { font-weight: bold; }
-.article-panel .equation { margin: 22px 0; }
-.article-panel .katex { font-size: 1.06em; }
-.article-panel .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 7px 1px 11px; margin: 20px 0; }
-.article-panel .katex-display > .katex { width: max-content; min-width: 100%; padding: 0 2px; }
-.article-panel .katex-display:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-.article-panel .katex-error { white-space: normal; overflow-wrap: anywhere; }
-.article-sources { margin-top: 42px; padding-top: 22px; border-top: 1px solid var(--line); color: #524f46; font-size: 15px; }
-.article-page .article-sources h2 { font-size: 13px; margin: 0 0 12px; }
-.article-sources ol { padding-left: 1.35em; }
-.article-sources a { overflow-wrap: anywhere; }
-.article-page .article-sources p { margin-bottom: 12px; }
+/* Keep long equations within the article on narrow screens. */
+.math-article .katex { font-size: 1.06em; }
+.math-article .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 7px 1px 11px; margin: 20px 0; }
+.math-article .katex-display > .katex { width: max-content; min-width: 100%; padding: 0 2px; }
+.math-article .katex-display:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.math-article .katex-error { white-space: normal; overflow-wrap: anywhere; }
 
 @media (max-width: 600px) {
-  .article-page { width: calc(100% - 40px); }
-  .article-subtitle { font-size: 19px; }
-  .article-page .article-panel h2 { font-size: 16px; letter-spacing: .045em; }
-  .article-panel .theorem, .article-panel .idea-box { padding: 14px; }
-  .article-panel .katex { font-size: 1em; }
-  .reading-level.is-enhanced { margin-top: 24px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reading-level button { transition: none; }
+  .math-article .katex { font-size: 1em; }
 }
 
 @media print {
-  .reading-level.is-enhanced, .reading-level-help { display: none !important; }
-  .article-page { width: 100%; }
-  .article-panel, .article-panel > section { break-inside: auto; }
-  .article-panel h2, .article-panel h3 { break-after: avoid; }
-  .article-panel .theorem, .article-panel .idea-box { break-inside: avoid; }
-  .article-panel .katex-display { overflow: visible; font-size: .85em; }
-  .article-page .article-header { margin-bottom: 22px; }
+  .math-article .katex-display { overflow: visible; font-size: .85em; }
 }
