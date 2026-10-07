@@ -1,0 +1,56 @@
+.math-article { position: relative; }
+.math-article > section { margin-top: 32px; }
+.math-article > section > h2 { margin-top: 0; }
+.article-image { display: block; width: 100%; height: auto; margin: 0 0 28px; }
+
+/* The prelude stays in the reading flow until there is room beside it. */
+.article-prelude { margin: -5px 0 24px; font-size: 16px; line-height: 1.65; }
+.article-prelude summary {
+  width: max-content;
+  margin-left: auto;
+  min-height: 44px;
+  padding: 11px 0;
+  color: var(--red);
+  font: 600 12px/1.7 var(--display);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.article-prelude summary::marker { color: var(--red); font-size: 10px; }
+.article-prelude summary:hover { color: var(--blue); }
+.article-prelude summary:focus-visible { outline: 2px solid var(--red); outline-offset: 5px; }
+.prelude-body { margin-top: 8px; padding-left: 17px; border-left: 1px solid var(--line); color: #524f46; overflow-wrap: break-word; }
+.document-page article .prelude-body p { margin-bottom: 15px; }
+.document-page article .prelude-body p:last-child { margin-bottom: 0; }
+
+/* Keep long equations within the article on narrow screens. */
+.math-article .katex { font-size: 1.06em; }
+.math-article .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 7px 1px 11px; margin: 20px 0; }
+.math-article .katex-display > .katex { width: max-content; min-width: 100%; padding: 0 2px; }
+.math-article .katex-display:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.math-article .katex-error { white-space: normal; overflow-wrap: anywhere; }
+
+@media (min-width: 1280px) {
+  .article-prelude {
+    position: absolute;
+    top: 123px;
+    left: calc(100% + 28px);
+    width: 230px;
+    margin: 0;
+    font-size: 15px;
+  }
+  .article-prelude summary { margin-left: 0; }
+  .prelude-body { margin-top: 4px; padding-left: 15px; }
+}
+
+@media (max-width: 600px) {
+  .math-article .katex { font-size: 1em; }
+  .article-prelude { font-size: 15px; }
+}
+
+@media print {
+  .article-prelude { position: static; width: auto; margin: 0 0 24px; }
+  .article-prelude summary { margin-left: 0; }
+  .math-article > section { break-inside: auto; }
+  .math-article .katex-display { overflow: visible; font-size: .85em; }
+}

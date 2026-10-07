@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#942c36">
+  <title>Erdős Problem #347 · Enrique Barschkis</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css" integrity="sha384-3rdsX6e5mueWyoweR9NIVmtEsUkokpBT/0ALqKKIBMr9j4qhHkaIkAcGgsE6uVlp" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/article.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js" integrity="sha384-QFFtAGzvvj+bfgCGxXJlNZZR1nXEZgvG8tDLCCY1F19xl20WlfTYgguB4VcNdxYk" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+  <script defer src="assets/article.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="document-page">
+    <header class="document-header"><a href="index.html#articles">← Enrique Barschkis</a><span>Articles / 2026</span></header>
+    <main id="main">
+      <article class="math-article" data-math-root>
+        <h1>Erdős Problem #347</h1>
+        <img class="article-image" src="assets/erdos-347-proved.png" width="1217" height="580" alt="Erdős Problems entry #347 marked PROVED (LEAN), with the problem statement and credit to ebarschkis based on ideas of Tao and van Doorn.">
+        <aside class="article-prelude" aria-label="Prelude">
+          <details>
+            <summary>Prelude</summary>
+            <div class="prelude-body">
+              <p>So, I was bored one evening (even though I should have been studying for my finals that would be next week) and I was again looking through the thousands of problems on erdosproblems.com. Neatly enough, there is a button on the top right corner of the site which shows you a random problem in the database, so I went around until I stumbled over problem #347. To me the question sounded relatively simple compared to the others I saw. I (very very naively) thought, this problem was gonna be relatively easy to solve.</p>
+            </div>
+          </details>
+        </aside>
+        <section id="problem" aria-labelledby="problem-heading">
+          <h2 id="problem-heading">1.) What was the problem?</h2>
+          <p>So the legendary <a href="https://en.wikipedia.org/wiki/Paul_Erd%C5%91s">Paul Erdős</a> and <a href="https://en.wikipedia.org/wiki/Ronald_Graham">Ronald Graham</a> conjectured in their 1979 paper "<a href="https://www.renyi.hu/~p_erdos/1979-07.pdf">Old and new problems and results in combinatorial number theory</a>" whether there exists an growing sequence of integers \(a_1\leq a_2\leq a_3\leq \cdots\) whose terms roughly double:</p>
+          <div class="math-block">\[\lim \frac{a_{n+1}}{a_n}=2\]</div>
+          <p>Now let's remove any finite collection of the sequence's terms, then take any finite number of the suriving terms (a single one suffices as well) and then add them up using each term at most once. Let \(S\) contain every positive integer we can make this way.</p>
+          <p>We now want \(S\) to cover <strong>almost</strong> all the positive integers (keep in mind "almost all integers"). To see what that means, count how many of the numbers \(1,\ldots,N\) belong to \(S\), then divide by \(N\). As we count further, that fraction should approach 1:</p>
+          <div class="math-block">\[
+\lim_{N\to\infty}\frac{|S\cap\{1,\ldots,N\}|}{N}=1.
+\]</div>
+          <p>The set \(S\) of sums may skip over infinitely many integers. That is allowed, as long as the missing numbers make up a fraction that tends to zero.</p>
+          <p>The difficulty is that the higher in the sequence you go, the sparser it gets. Every positive integer can be represented as a sum of distinct powers of two, which gives us the familiar binary representation. But remove even one of those powers, and we can no longer reach certain numbers with a sum of distinct terms.</p>
+        </section>
+        <section id="prior-work" aria-labelledby="prior-work-heading">
+          <h2 id="prior-work-heading">2.) the lore</h2>
+          <p>So by the time I got around to the discussion on the forum, there was an approach that I could build on. Now Graham had already constructed a sequence based on Fibonacci numbers with a stronger property, that you removed any finite number of terms and the sums of distinct remaining terms would still include every sufficiently large integer. The ratios of adjacent terms converge to the golden ratio, which is roughly \(1.618\), kids stuff.</p>
+          <p>However later on, <a href="https://en.wikipedia.org/wiki/Stefan_Burr">Stefan Burr</a> and Erdős showed in their <a href="https://users.renyi.hu/~p_erdos/1981-02.pdf">paper</a> two years later that this stronger property was impossible for a limiting ration higher than the golden ratio. To each \(2\), we would have to allow infinitely many missing integers and then prove that their proportion tends to zero.</p>
+          <p>43 years later, a now-collaborator of mine, Wouter van Doorn proposed approaching \(2\) extremely slowly, this garnered the attention of one of the most famous mathematicians of our time, Terence Tao, who further developed the idea by grouping the terms into blocks, so within each block, two different choices of terms could give sums exactly 1 apart and that switching between the two would allow us to correct small errors in an approximate representation.</p>
+          <p>Now his sketch only explained how the proof would work if the block sizes were fixed. The open question here was to rigorously prove, whether it was possible to let the blocks grow longer, but slow enough that the argument still worked, while ensuring the successive ratios converge to \(2\).</p>
+        </section>
+        <section id="my-contribution" aria-labelledby="my-contribution-heading">
+          <h2 id="my-contribution-heading">3.) how did we get here?</h2>
+          <p>So when I got around to the problem, started by first trying to wrap my head around the problem, reading the comments, paper(s) and looking for other relevant literature. I then began by making a list of all the various prerequisites that the desired sequence needed to forfill.</p>
+          <p>Now, a few days before that, Sebastien Bubeck from OpenAI (from whom I later received a commendation) had posted about how they had greatly improved GPT-5.1 and 5.2 (SOTA models back then, believe it or not) at mathematical work. So I tried one-shotting the problem for the fun of it, which, of course, lead to the model spewing out some nonsense. But by cleverly decomposing the problem into various subproblems I could have the clankers help me chew on my various ideas. Now most of the AI used here was in Codex to help me write all the code. So, when trying to pry out novel ideas out of the model back then lead to just some weird and useless reformulation of the problem or just complete BS. Occasionally it had the one or two somewhat clever and nontrivial ideas, but in the grand scheme of things, they were mostly what I would call "constant-factor improvements", not greater "asymptotic" ones.</p>
+          <p>Over time, I exchanged my findings with other mathematicians on and off the forum, like Bartosz Naskrecki, which I had met on my research for discrete logarithms, Boris Alexeev and Wouter van Doorn. I kept experimenting computationally using NumPy and SageMath. I was very surprised how good the models were at implementing my ideas in code, but tbh I admit that my coding skills are horrendous, so it isn't hard to impress me there. Anyways, one evening I finally managed to construct the desired sequence. I had the bot write up the paper for me and I shoved it directly into Aristotle, a formalization agent by Harmonic, which formally proved everything in Lean. I immediately contacted the other to inform them about my breakthrough. After a short discussion and some preliminary checks, I released the proof to the forum.<br>
+          Surprisingly, Tao himself personally proof-checked it and gave it the green light just an hour later. Safe to say I was very proud that day!</p>
+        </section>
+        <section id="hard-part" aria-labelledby="hard-part-heading">
+          <h2 id="hard-part-heading">4.) some assembly required</h2>
+          <p>Now for the nitty-gritty part. So we know that longer blocks bring the consecutive ratios closer to \(2\), however longer blocks have more possible subset sums. So the choice that allows a one-unit correction becomes a smaller fraction of them. Let's take for example \(10, 20, 40, 71.\) Now the first three numbers sum to \(70\), now alternatively we may also choose \(71\). Switching from the former to the latter raises the total by one, without using any number twice and if our approximate sum uses the lower choice in several disjoint blocks, we can make these corrections independently. Now fix a tail of complete blocks. For a given target, start with a sufficiently large block and work downwards. At each step take the largest allowed contribution that fits within the current remainder. This leaves a remainder bounded by a fixed integer \(D\). So \(D\) depends on the starting point of the tail, not on the target. If the representation has at least \(D\) correction opportunites, we can fix the error by adjusting blocks one step at a time.</p>
+          <p>Other representations may have too few of these opportunities to do the job. Letting the blocks grow too quickly would undermine the counting argument. The construction in my paper used block lengths of \(k_n=4+\left\lceil\log_2\log_2(n+16)\right\rceil\). The double logarithm keeps the growth slow, though the blocks still become arbitrarily long. The consecutive ratios tend to 2, but the correction opportunities are frequent enough for estimates to hold.<br>
+          We count all descriptions with fewer than "D" correction opportunities, including every possible remainder. This gives an upper bound on the number of integers that cannot be represented. After dividing by the cutoff, we get exponential decay multiplied by a polynomial of fixed degree, in the same growing parameter. The exponential decay dominates the polynomial growth. Passing from the block endpoints to immediate cutoffs introduces a factor that grows logarithmically in the blog index. The existing decay estimate then outeights this growth in the factor. So the proportion of unrepresentable integers tends to zero as the cutoff grows, including between block scales.<br>
+          Removing finitely many terms damages a finite number of blocks. Beyond the last damaged block, the same argument applies. The new remainder bound \(D\) may be much larger, but it stays fixed while the number of blocks is growing.</p>
+        </section>
+        <section id="result" aria-labelledby="result-heading">
+          <h2 id="result-heading">5.) End of the line</h2>
+          <p>In the end the conjecture was proven in the affirmative with a construction whose ratio between successive terms approaches \(2\). Remove any finite number of terms, and the finite sums of distinct terms that remain will still cover almost all the positive integers and hence have density \(1\).</p>
+          <p>My Paper "<a href="assets/erdos-347-paper.pdf">A sequence of with doubling ratio and full density subset sums</a>"</p>
+          <p><a href="https://github.com/ebarschkis/ErdosProblem/blob/main/Problem347/Formalization.lean">Formal proof verification in Lean</a></p>
+        </section>
+      </article>
+    </main>
+    <footer class="footer"><div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="index.html#articles">Back to articles ↑</a></div><div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div></footer>
+  </div>
+</body>
+</html>

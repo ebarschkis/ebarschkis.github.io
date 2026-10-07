@@ -69,9 +69,10 @@ h2 { margin: 0; color: var(--blue); font: 600 16px/1.5 var(--display); text-tran
 p { margin: 0 0 10px; }
 .bio p { margin-bottom: 12px; }
 .bio p:last-child { margin-bottom: 0; }
-.bio p:first-child { font-size: 21px; }
+.bio p:first-child { font-size: 21px; text-align: center; }
 .bio p + p { color: #524f46; }
 .about-more { margin-top: 12px; }
+.about-more a:hover .link-label > span, .about-more a:focus-visible .link-label > span { visibility: hidden; }
 .empty-state { color: var(--muted); font-size: 16px; font-style: italic; margin-bottom: 0; }
 .entry-list { list-style: none; margin: 0; padding: 0; }
 .entry { padding: 11px 0 12px; border-bottom: 1px solid var(--line); }
@@ -79,6 +80,14 @@ p { margin: 0 0 10px; }
 .entry:last-child { border-bottom: 0; padding-bottom: 0; }
 .entry-top { display: flex; gap: 20px; align-items: baseline; justify-content: space-between; }
 .entry-title { font-size: 18px; font-weight: normal; }
+#articles .entry { border-bottom: 0; }
+.animated-link { position: relative; display: inline-block; min-width: 0; padding-right: 1.5em; }
+#articles .animated-link { display: block; }
+.link-label { display: inline-block; transition: transform .18s ease; }
+.hover-arrow { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity .18s ease; }
+.animated-link:hover .link-label, .animated-link:focus-visible .link-label { transform: translateX(1.5em); }
+.animated-link:hover .hover-arrow, .animated-link:focus-visible .hover-arrow { opacity: 1; }
+.animated-link:hover .link-arrow, .animated-link:focus-visible .link-arrow { visibility: hidden; }
 .entry-date { flex-shrink: 0; color: var(--muted); font: 600 11px/1.5 var(--display); letter-spacing: .07em; text-transform: uppercase; }
 .entry p { font-size: 16px; line-height: 1.5; margin: 4px 0 0; color: #524f46; }
 .note-entry { display: grid; grid-template-columns: 100px 1fr; gap: 18px; align-items: baseline; padding: 8px 0; }
@@ -143,6 +152,10 @@ p { margin: 0 0 10px; }
   .footer-line { font-size: 9px; letter-spacing: .025em; flex-wrap: wrap; justify-content: center; }
   .document-page { width: calc(100% - 40px); margin-top: 24px; }
   .document-header { flex-wrap: wrap; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-label, .hover-arrow { transition: none; }
 }
 
 @media print {
