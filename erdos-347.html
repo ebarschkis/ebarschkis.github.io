@@ -41,6 +41,13 @@
           <p>The set \(S\) of sums may skip over infinitely many integers. That is allowed, as long as the missing numbers make up a fraction that tends to zero.</p>
           <p>The difficulty is that the higher in the sequence you go, the sparser it gets. Every positive integer can be represented as a sum of distinct powers of two, which gives us the familiar binary representation. But remove even one of those powers, and we can no longer reach certain numbers with a sum of distinct terms.</p>
         </section>
+        <section id="prior-work" aria-labelledby="prior-work-heading">
+          <h2 id="prior-work-heading">2.) what was known before:</h2>
+          <p>So by the time I got around to the discussion on the forum, there was an approach that I could build on. Now Graham had already constructed a sequence based on Fibonacci numbers with a stronger property, that you removed any finite number of terms and the sums of distinct remaining terms would still include every sufficiently large integer. The ratios of adjacent terms converge to the golden ratio, which is roughly \(1.618\), kids stuff.</p>
+          <p>However later on, <a href="https://en.wikipedia.org/wiki/Stefan_Burr">Stefan Burr</a> and Erdős showed in their <a href="https://users.renyi.hu/~p_erdos/1981-02.pdf">paper</a> two years later that this stronger property was impossible for a limiting ration higher than the golden ratio. To each \(2\), we would have to allow infinitely many missing integers and then prove that their proportion tends to zero.</p>
+          <p>43 years later, a now-collaborator of mine, Wouter van Doorn proposed approaching \(2\) extremely slowly, this garnered the attention of one of the most famous mathematicians of our time, Terence Tao, who further developed the idea by grouping the terms into blocks, so within each block, two different choices of terms could give sums exactly 1 apart and that switching between the two would allow us to correct small errors in an approximate representation.</p>
+          <p>Now his sketch only explained how the proof would work if the block sizes were fixed. The open question here was to rigorously prove, whether it was possible to let the blocks grow longer, but slow enough that the argument still worked, while ensuring the successive ratios converge to \(2\).</p>
+        </section>
       </article>
     </main>
     <footer class="footer"><div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="index.html#articles">Back to articles ↑</a></div><div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div></footer>
