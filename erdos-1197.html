@@ -7,16 +7,85 @@
   <title>Erdős Problem #1197 · Enrique Barschkis</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css" integrity="sha384-3rdsX6e5mueWyoweR9NIVmtEsUkokpBT/0ALqKKIBMr9j4qhHkaIkAcGgsE6uVlp" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/article.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js" integrity="sha384-QFFtAGzvvj+bfgCGxXJlNZZR1nXEZgvG8tDLCCY1F19xl20WlfTYgguB4VcNdxYk" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+  <script defer src="assets/article.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="document-page">
     <header class="document-header"><a href="index.html#articles">← Enrique Barschkis</a><span>Articles / 2026</span></header>
     <main id="main">
-      <article>
+      <article class="math-article" data-math-root>
         <h1>Erdős Problem #1197</h1>
         <img class="article-image" src="assets/erdos-1197-disproved.png" width="1187" height="630" alt="Erdős Problems entry #1197 marked DISPROVED (LEAN), with the problem statement, background results, and credit to ebarschkis for a counterexample using a variant of the Buczolich-Mauldin construction.">
+        <section id="problem" aria-labelledby="problem-heading">
+          <h2 id="problem-heading">1.) What was the problem?</h2>
+          <p>So take a measurable set \(E\) of positive real numbers with positive measure. Measure here means length, extended to sets that might have holes all over the place. Now stretch \(E\) by every positive integer: \(E,2E,3E,\ldots\). Pick a number \(x&gt;0\) and look at its multiples \(x,2x,3x,\ldots\). Must every sufficiently late multiple land in one of those stretched copies of \(E\), for almost every choice of \(x\)? That was the question of Haight recorded as <a href="https://www.erdosproblems.com/1197">Erdős Problem #1197</a>.</p>
+          <p>Written out, it asks whether, for almost every \(x&gt;0\), there is a threshold after which every integer \(n\) admits some integer \(r\geq1\) with</p>
+          <div class="math-block">\[nx\in rE,\qquad\text{equivalently}\qquad\frac{nx}{r}\in E.\]</div>
+          <p>Here \(rE=\{re:e\in E\}\), so we are stretching the set, not adding its elements together. The threshold may depend on \(x\), and we get to choose a fresh \(r\) for each \(n\). “Almost every” allows a set of exceptions of measure zero. It does not allow us to throw out a whole interval just because it is being annoying.</p>
+        </section>
+        <section id="prior-work" aria-labelledby="prior-work-heading">
+          <h2 id="prior-work-heading">2.) the lore</h2>
+          <p>If \(E\) contains an interval \((a,b)\), with \(0&lt;a&lt;b\), this works without much trouble. We only need an integer \(r\) between \(nx/b\) and \(nx/a\). The gap between those bounds grows with \(n\), so eventually it is wider than \(1\) and has to contain an integer. That gives \(nx/r\in(a,b)\subset E\).</p>
+          <p>Unfortunately, positive measure does not guarantee an interval. A set can retain positive length after having holes removed from every neighbourhood. So the easy argument leaves out exactly the kind of set that could cause trouble here.</p>
+          <p>Haight had already constructed a set of infinite measure for which every \(x&gt;0\) has only finitely many multiples \(nx\) in the set. His set also contains no two distinct points whose ratio is an integer; this is discussed in <a href="https://www.erdosproblems.com/1195">Problem #1195</a>. But missing \(E\) itself is not enough for #1197. We have to miss every stretched copy \(rE\) at the same time.</p>
+          <p>Buczolich and Mauldin had another useful construction. They produced an open set that the multiples of every point in one interval visit infinitely often, while the multiples of almost every point in another interval visit only finitely often. Their open set cannot itself be our counterexample, since it contains an interval. What I could use was the lemma that built it: a way of making sets that catch multiples from one interval while barely affecting another.</p>
+        </section>
+        <section id="how-we-got-here" aria-labelledby="history-heading">
+          <h2 id="history-heading">3.) how did we get here?</h2>
+          <p>I was intrigued by the problem and explored a few ideas with GPT Pro. The construction I ended up with reused the Buczolich–Mauldin lemma, taking a complement of the points affected by their sets. I posted the proposed negative solution on 13 April 2026, together with a paper and an Aristotle-assisted Lean formalization.</p>
+          <p>I also ran the argument through several independent instances of GPT-\(5.4\) Pro to look for mistakes. Having several clankers agree is encouraging, but it still leaves you needing an actual argument. The first Lean version had one <code>sorry</code>: an unproved placeholder for the approximation data supplied by Kronecker's theorem and the prime number theorem. I said so in the post.</p>
+          <p>Nat Sothanaphan responded that evening and identified the reuse of the Buczolich–Mauldin shell construction. Tomodovodoo followed up on 14 April after checking the argument and the formal statement, also with GPT-\(5.4\) Pro, and then took on the remaining Lean gap.</p>
+          <p>On 15 April, Tomodovodoo reported resolving that gap using Aristotle, preliminary work with GPT-\(5.4\) Pro, and a Chebyshev asymptotic result from PNT+, a project they had previously contributed to. They described roughly ten hours of computation on their computer, much of it running while they were at work or asleep. That final formalization step was their contribution. My work supplied the counterexample and its initial formalization, building on the earlier mathematical construction.</p>
+        </section>
+        <section id="hard-part" aria-labelledby="hard-part-heading">
+          <h2 id="hard-part-heading">4.) some assembly required</h2>
+          <p>Now for the nitty-gritty part. The difficulty is the freedom to choose \(r\). Finding a large \(n\) with \(nx\notin E\) does very little when \(nx\) might still belong to \(2E\), or \(3E\), or any other integer dilation. So we want a forbidden set \(F\) that all the copies \(rE\) avoid, but that the multiples of every \(x\) in some interval keep hitting.</p>
+          <p>This suggests building \(F\) first. Once we have it, remove from a starting interval every point whose multiples can reach \(F\). Whatever remains will be our \(E\). The problem is keeping enough of that interval after all the removals. That is where Buczolich and Mauldin's estimate does the heavy lifting.</p>
+          <h3>Two intervals with very different jobs</h3>
+          <p>Take</p>
+          <div class="math-block">\[I=\left(\frac89,1\right),\qquad J=\left[\frac{16}{25},\frac23\right].\]</div>
+          <p>We will keep \(E\) inside \(I\). The counterexample will fail at every point of \(J\). To describe what gets removed, write</p>
+          <div class="math-block">\[\Phi(H)=\left[\frac12,1\right)\cap\bigcup_{m=1}^{\infty}\frac1m H.\]</div>
+          <p>A point belongs to \(\Phi(H)\) precisely when it lies in \([1/2,1)\) and some positive integer multiple of it lands in \(H\). I will call this the shadow of \(H\): shrink \(H\) by every positive integer and collect the points those copies cover in our reference interval.</p>
+          <p>The Buczolich–Mauldin lemma provides open sets \(H_k\) in disjoint ranges \((2^{\nu_k-1},2^{\nu_k})\), with the integers \(\nu_k\) increasing. They satisfy</p>
+          <div class="math-block">\[J\subset\Phi(H_k),\qquad |I\cap\Phi(H_k)|&lt;5\cdot2^{-k}.\]</div>
+          <p>Every point of \(J\) has a multiple in every \(H_k\). Meanwhile, the shadow inside \(I\) has a measure that shrinks geometrically. Those are the two properties we need. The estimate concerns the shadow inside \(I\); making \(H_k\) itself small would not by itself control all its shrunken copies.</p>
+          <h3>Why those sets can exist</h3>
+          <p>The difficult construction here belongs to Buczolich and Mauldin. They work in logarithmic coordinates, where multiplying by an integer becomes adding its logarithm. This lets them use Kronecker's approximation theorem to arrange many shifts at once.</p>
+          <p>Roughly, selected primes give shifts spread around a fine periodic grid. For any point in \(J\), one of those shifts moves it into a narrow target interval. The integers that could take a point of \(I\) into the same shell are arranged to have shifts close to zero modulo that grid. Their shadows therefore overlap in narrow regions, instead of spreading across \(I\).</p>
+          <p>The prime number theorem supplies enough primes in the required range. The primes are larger than the competing integers, so unique prime factorization gives the compatibility condition needed for Kronecker's theorem. The exact ranges and error bounds are in the original proof. This is how one set can catch a multiple of every point in \(J\) while casting such a small shadow in \(I\).</p>
+          <h3>Remove the shadows</h3>
+          <p>Choose a starting index \(K\) large enough for the lemma to apply and for</p>
+          <div class="math-block">\[\sum_{k=K}^{\infty}5\cdot2^{-k}&lt;\frac19=|I|.\]</div>
+          <p>Now define</p>
+          <div class="math-block">\[F=\bigcup_{k=K}^{\infty}H_k,\qquad E=I\setminus\Phi(F).\]</div>
+          <p>This is the move my counterexample uses. We delete every point in \(I\) that could send an integer multiple into any of the shells. The total amount deleted is at most the sum of the individual shadow measures, so</p>
+          <div class="math-block">\[|E|\geq\frac19-\sum_{k=K}^{\infty}5\cdot2^{-k}&gt;0.\]</div>
+          <p>That is ordinary countable subadditivity of measure. No independence assumption is needed. All these sets are measurable, since the shells are open and the shadows are countable unions of scaled open sets, restricted to an interval.</p>
+          <p>Suppose \(y\in F\) could also be written as \(y=re\), where \(e\in E\) and \(r\geq1\) is an integer. Then an integer multiple of \(e\) reaches \(F\), so \(e\in\Phi(F)\). But those are precisely the points we removed from \(I\). Therefore</p>
+          <div class="math-block">\[F\cap rE=\varnothing\qquad\text{for every integer }r\geq1.\]</div>
+          <p>One definition has excluded every possible \(r\) at once. There is no need to chase the stretched copies individually.</p>
+          <h3>Infinitely many failures</h3>
+          <p>Fix any \(x\in J\). For each \(k\), the lemma gives an integer \(n_k\) with \(n_kx\in H_k\). The shells are disjoint, so these integers are distinct: the same multiple cannot sit in two disjoint sets. Consequently there are infinitely many such \(n_k\), and they are unbounded.</p>
+          <p>Each \(n_kx\) belongs to \(F\), which misses every \(rE\). Thus</p>
+          <div class="math-block">\[\begin{gathered}\text{for every }x\in J,\ \text{for infinitely many }n,\\ nx\notin rE\quad\text{for every integer }r\geq1.\end{gathered}\]</div>
+          <p>This is exactly the obstruction we wanted. No matter how far out we put the threshold, another failing \(n\) comes along. The construction works by combining repeated visits on one interval with a small total removal on another. The remaining proof is bookkeeping; making that combination available was the job of the earlier lemma.</p>
+        </section>
+        <section id="result" aria-labelledby="result-heading">
+          <h2 id="result-heading">5.) End of the line</h2>
+          <p>The answer is negative. The set \(E\) has positive measure, but every \(x\) in the entire interval \([16/25,2/3]\) has infinitely many multiples outside every integer dilation of \(E\). So even allowing a different \(r\) each time cannot rescue the eventual covering claim.</p>
+          <p>My contribution was to repurpose the Buczolich–Mauldin shells through the construction \(E=I\setminus\Phi(F)\), and to develop the counterexample with GPT Pro and an initial Aristotle-assisted formalization. The shell lemma, its Kronecker argument, and its prime-number input were existing mathematics. Tomodovodoo supplied the subsequent work resolving the original formalization gap.</p>
+          <p>One detail about the linked Lean repository: it records that gap as resolved, while its <a href="https://github.com/Tomodovodoo/Erdos_1197/blob/main/PNTBridge.lean">PNTBridge file</a> represents two separately proved PNT+ results with <code>admit</code> placeholders. The <a href="https://github.com/Tomodovodoo/Erdos_1197#readme">README</a> explains this dependency arrangement. The mathematical proof uses the established results; the repository's shortcut for importing them should be kept distinct from a build with no admitted statements.</p>
+          <p>My paper: <a href="assets/erdos-1197-paper.pdf">A negative answer to an eventual covering question for rational dilates</a></p>
+          <p><a href="https://github.com/Tomodovodoo/Erdos_1197">Lean formalization and Tomodovodoo's completion</a></p>
+          <p><a href="https://www.erdosproblems.com/1197">Problem statement and forum discussion</a></p>
+          <p>Buczolich and Mauldin: <a href="https://www.researchgate.net/profile/Zoltan-Buczolich/publication/299093750_On_the_convergence_of_Sigmainfinityn1fnx_for_measurable_functions/links/5a7d601fa6fdccc013f5a45c/On-the-convergence-of-Sigmainfinityn1fnx-for-measurable-functions.pdf">On the convergence of \(\sum_{n=1}^{\infty}f(nx)\) for measurable functions</a></p>
+        </section>
       </article>
     </main>
     <footer class="footer"><div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="index.html#articles">Back to articles ↑</a></div><div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div></footer>
