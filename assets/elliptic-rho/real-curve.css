@@ -1,0 +1,30 @@
+.curve-prose .curve-explorer { width:min(940px,calc(100vw - 48px)); max-width:none; position:relative; left:50%; transform:translateX(-50%); margin:32px 0 38px; padding:20px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper); }
+.curve-explorer .real-layout { display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:26px; align-items:start; }
+.curve-explorer .real-plot { min-width:0; }
+.curve-explorer .real-equation { min-height:38px; overflow-x:auto; text-align:center; font-size:19px; }
+.curve-explorer svg { display:block; width:100%; height:auto; aspect-ratio:5/4; touch-action:none; cursor:grab; }
+.curve-explorer svg:active { cursor:grabbing; }
+.curve-explorer svg:focus-visible { outline:2px solid var(--red); outline-offset:2px; }
+.curve-explorer #real-grid { stroke:var(--line); stroke-width:.5; opacity:.5; }
+.curve-explorer #real-axes line { stroke:var(--muted); stroke-width:1; }
+.curve-explorer #real-axes text { fill:var(--muted); font:12px Georgia,serif; }
+.curve-explorer #real-paths { fill:none; stroke:var(--blue); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
+.curve-explorer .real-controls { border-left:1px solid var(--line); padding-left:22px; }
+.curve-explorer .real-controls h2 { margin:0 0 16px; font-size:13px; letter-spacing:.1em; }
+.curve-explorer label { display:block; font:600 11px/1.6 var(--display); text-transform:uppercase; letter-spacing:.06em; margin:12px 0 5px; }
+.curve-explorer select,.curve-explorer input { width:100%; min-width:0; border:1px solid var(--line); border-radius:2px; background:#faf5e8; color:var(--ink); padding:8px; font:14px/1.5 var(--body); }
+.curve-explorer .real-coefficients { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.curve-explorer .real-buttons { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 8px; }
+.curve-explorer button { min-height:36px; min-width:36px; padding:5px 10px; color:var(--blue); background:transparent; border:1px solid var(--line); font:600 12px/1.5 var(--display); cursor:pointer; }
+.curve-explorer button:hover { color:var(--red); border-color:var(--red); }
+.curve-explorer :is(button,input,select):focus-visible { outline:2px solid var(--red); outline-offset:2px; }
+.curve-prose .curve-explorer p { margin:10px 0 0; font-size:13px; line-height:1.6; color:var(--muted); }
+.curve-explorer #real-scale { overflow-x:auto; min-height:25px; text-align:center; font-size:12px; }
+.curve-explorer .real-help { text-align:center; }
+.curve-explorer figcaption { font-size:14px; line-height:1.6; color:var(--muted); margin-top:16px; }
+.curve-explorer details { margin-top:12px; font-size:12px; }
+.curve-explorer summary { cursor:pointer; color:var(--blue); }
+.curve-explorer #real-warning,.curve-explorer #real-input-error { color:var(--red); }
+.curve-explorer #real-warning:empty,.curve-explorer #real-input-error:empty { display:none; }
+@media(min-width:521px) and (max-width:760px) { .curve-prose .curve-explorer { padding:18px 0; } .curve-explorer .real-layout { grid-template-columns:minmax(0,1fr) 190px; gap:16px; } .curve-explorer .real-controls { padding-left:16px; } }
+@media(max-width:520px) { .curve-prose .curve-explorer { width:100%; padding:18px 0; } .curve-explorer .real-layout { grid-template-columns:1fr; gap:18px; } .curve-explorer .real-controls { border-left:0; border-top:1px solid var(--line); padding:18px 0 0; } .curve-explorer .real-selects { display:grid; grid-template-columns:1fr 1fr; gap:12px; } }
