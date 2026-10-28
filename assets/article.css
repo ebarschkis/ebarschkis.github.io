@@ -1,6 +1,18 @@
 .math-article { position: relative; }
 .math-article > section { margin-top: 32px; }
 .math-article > section > h2 { margin-top: 0; }
+.heading-reference {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding-bottom: 3px;
+  font: 600 10px/1 var(--display);
+  letter-spacing: 0;
+  text-decoration: none;
+  vertical-align: -3px;
+}
 .article-image { display: block; width: 100%; height: auto; margin: 0 0 28px; }
 
 /* The prelude stays in the reading flow until there is room beside it. */
