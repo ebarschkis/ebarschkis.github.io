@@ -28,3 +28,9 @@
 .curve-explorer #real-warning:empty,.curve-explorer #real-input-error:empty { display:none; }
 @media(min-width:521px) and (max-width:760px) { .curve-prose .curve-explorer { padding:18px 0; } .curve-explorer .real-layout { grid-template-columns:minmax(0,1fr) 190px; gap:16px; } .curve-explorer .real-controls { padding-left:16px; } }
 @media(max-width:520px) { .curve-prose .curve-explorer { width:100%; padding:18px 0; } .curve-explorer .real-layout { grid-template-columns:1fr; gap:18px; } .curve-explorer .real-controls { border-left:0; border-top:1px solid var(--line); padding:18px 0 0; } .curve-explorer .real-selects { display:grid; grid-template-columns:1fr 1fr; gap:12px; } }
+.curve-heading { margin-bottom:0; }
+.curve-heading h1 { margin-bottom:12px; }
+.curve-prose h1 { margin-bottom:27px; }
+.curve-prose p { margin:0 0 24px; }
+.curve-prose { padding-bottom:12px; }
+.curve-footer { margin-top:26px; }
