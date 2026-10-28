@@ -41,7 +41,7 @@
             <h2 id="real-curve-heading">Curve explorer</h2>
             <div class="real-selects">
               <div><label for="real-preset">Preset</label><select id="real-preset">
-                <option value="example">Example: a = −1, b = 1</option><option value="secp256k1">secp256k1</option><option value="ed25519">Ed25519 (edwards25519)</option><option value="p256">P-256 (secp256r1)</option><option value="curve25519">Curve25519</option><option value="custom">Custom</option>
+                <option value="example">Example: a = −1, b = 1</option><option value="secp256k1">secp256k1 (Bitcoin)</option><option value="ed25519">Ed25519 (edwards25519)</option><option value="p256">P-256 (secp256r1)</option><option value="curve25519">Curve25519</option><option value="custom">Custom</option>
               </select></div>
               <div><label for="real-form">Equation form</label><select id="real-form"><option value="short">Short Weierstrass</option><option value="montgomery">Montgomery</option><option value="edwards">Twisted Edwards</option></select></div>
             </div>
@@ -49,10 +49,8 @@
             <p id="real-input-error" role="alert"></p><p id="real-warning" role="status"></p>
             <div class="real-buttons"><button id="real-zoom-in" type="button" aria-label="Zoom in on curve">+</button><button id="real-zoom-out" type="button" aria-label="Zoom out of curve">−</button><button id="real-reset" type="button">Reset view</button></div>
             <p id="real-preset-note"></p>
-            <details><summary>About the presets</summary><p>These are real-number illustrations of the named equations. Cryptographic curves instead use finite fields. P-256 uses the representative a = −3; Ed25519 uses a real fraction for d. Changing representatives can change the real graph.</p><p>Parameters: <a href="https://www.secg.org/sec2-v2.pdf">SEC 2</a> and <a href="https://www.rfc-editor.org/rfc/rfc7748.html">RFC 7748</a>.</p></details>
           </div>
         </div>
-        <figcaption>A smooth plot over the real numbers. Cryptographic curves instead use discrete points over finite fields.</figcaption>
         <noscript>This interactive graph requires JavaScript.</noscript>
       </figure>
 
