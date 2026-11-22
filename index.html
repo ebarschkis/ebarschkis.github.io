@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="My personal site.">
-  <meta name="theme-color" content="#942c36">
+  <meta name="theme-color" content="#f6efdc">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ebarschkis.github.io/">
   <meta property="og:title" content="Enrique Barschkis">
@@ -12,7 +12,7 @@
   <title>Enrique Barschkis</title>
   <link rel="canonical" href="https://ebarschkis.github.io/">
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="preload" href="assets/fonts/jost-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/cmunrm.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
 {
@@ -46,63 +46,69 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#about">Skip to content</a>
-  <div class="page" id="top">
-    <header class="masthead">
-      <div class="masthead-title">
+  <a href="#about">Skip to content</a>
+  <div id="top">
+    <header>
+      <div>
         <h1>Enrique Barschkis</h1>
-        <img class="portrait" src="assets/portrait.jpeg" alt="Portrait of Enrique Barschkis" width="1170" height="1138">
+        <img src="assets/portrait.jpeg" alt="Portrait of Enrique Barschkis" width="104" height="101">
       </div>
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="#about"><span aria-hidden="true">01</span> About</a>
-        <a href="#articles"><span aria-hidden="true">02</span> Articles</a>
-        <a href="#work"><span aria-hidden="true">03</span> Work</a>
-        <a href="#notes"><span aria-hidden="true">04</span> Notes</a>
-        <a href="#contact"><span aria-hidden="true">05</span> Contact</a>
+      <nav aria-label="Main navigation">
+        <p>
+          <a href="#about">About</a> ·
+          <a href="#articles">Articles</a> ·
+          <a href="#work">Work</a> ·
+          <a href="#notes">Notes</a> ·
+          <a href="#contact">Contact</a>
+        </p>
       </nav>
+      <hr>
     </header>
-    <main class="content">
-      <section class="about-section" id="about" aria-labelledby="about-title">
-        <div class="section-heading"><span class="exhibit" aria-hidden="true">01</span><h2 id="about-title">About</h2><span class="section-line" aria-hidden="true"></span></div>
-        <div class="bio"><p>Hi, I’m Enrique.</p>
-<p>I work on open problems in computer science and mathematics, mostly in number theory. I’ve solved two previously open Erdős problems and am working on a few other conjectures.</p>
-<p>I also spend time exploring elliptic-curve cryptography and integer factorization. More recently, I’ve worked on photonic chips for running LLM inference. Much of what I’m working on ends up here.</p></div>
-        <p class="about-more"><a class="animated-link" href="about.html"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">More about me <span aria-hidden="true">➵</span></span></a></p>
+    <main>
+      <section id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p>Hi, I’m Enrique.</p>
+        <p>I work on open problems in computer science and mathematics, mostly in number theory. I’ve solved two previously open Erdős problems and am working on a few other conjectures.</p>
+        <p>I also spend time exploring elliptic-curve cryptography and integer factorization. More recently, I’ve worked on photonic chips for running LLM inference. Much of what I’m working on ends up here.</p>
+        <p><a href="about.html">More about me</a></p>
       </section>
       <section id="articles" aria-labelledby="articles-title">
-        <div class="section-heading"><span class="exhibit" aria-hidden="true">02</span><h2 id="articles-title">Articles</h2><span class="section-line" aria-hidden="true"></span></div>
-        <ul class="entry-list">
-          <li class="entry"><a class="entry-title animated-link" href="erdos-347.html"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Erdős Problem #347</span></a></li>
-          <li class="entry"><a class="entry-title animated-link" href="erdos-1197.html"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Erdős Problem #1197</span></a></li>
-          <li class="entry"><a class="entry-title animated-link" href="elliptic-curve-discrete-logarithms.html"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Elliptic Curve Discrete Logarithms</span></a></li>
-          <li class="entry"><a class="entry-title animated-link" href="kryptos.html"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Kryptos</span></a></li>
+        <h2 id="articles-title">Articles</h2>
+        <ul>
+          <li><a href="erdos-347.html">Erdős Problem #347</a></li>
+          <li><a href="erdos-1197.html">Erdős Problem #1197</a></li>
+          <li><a href="elliptic-curve-discrete-logarithms.html">Elliptic Curve Discrete Logarithms</a></li>
+          <li><a href="kryptos.html">Kryptos</a></li>
         </ul>
       </section>
       <section id="work" aria-labelledby="work-title">
-        <div class="section-heading"><span class="exhibit" aria-hidden="true">03</span><h2 id="work-title">Selected work</h2><span class="section-line" aria-hidden="true"></span></div>
-        <ul class="entry-list">
-  <li class="entry"><div class="entry-top"><a class="animated-link entry-title" href="https://github.com/ebarschkis/ErdosProblem"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Erdős problems in Lean <span class="link-arrow" aria-hidden="true">➶</span></span></a><span class="entry-date">2025–26</span></div><p>Formalizations of selected Erdős problems.</p></li>
-  <li class="entry"><div class="entry-top"><a class="animated-link entry-title" href="https://github.com/ebarschkis/SemaevSummationPolynomials"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Semaev summation polynomials <span class="link-arrow" aria-hidden="true">➶</span></span></a><span class="entry-date">2026</span></div><p>Exploring discrete logarithms on elliptic curves using summation polynomials.</p></li>
-  <li class="entry"><div class="entry-top"><a class="animated-link entry-title" href="https://github.com/ebarschkis/Matrix-Multiplication"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Matrix multiplication <span class="link-arrow" aria-hidden="true">➶</span></span></a><span class="entry-date">2025</span></div><p>Experiments and Lean code for the lower complexity bounds of matrix multiplication.</p></li>
-</ul>
+        <h2 id="work-title">Selected work</h2>
+        <ul>
+          <li><div><a href="https://github.com/ebarschkis/ErdosProblem">Erdős problems in Lean</a> · <span>2025–26</span></div><p>Formalizations of selected Erdős problems.</p></li>
+          <li><div><a href="https://github.com/ebarschkis/SemaevSummationPolynomials">Semaev summation polynomials</a> · <span>2026</span></div><p>Exploring discrete logarithms on elliptic curves using summation polynomials.</p></li>
+          <li><div><a href="https://github.com/ebarschkis/Matrix-Multiplication">Matrix multiplication</a> · <span>2025</span></div><p>Experiments and Lean code for the lower complexity bounds of matrix multiplication.</p></li>
+        </ul>
       </section>
       <section id="notes" aria-labelledby="notes-title">
-        <div class="section-heading"><span class="exhibit" aria-hidden="true">04</span><h2 id="notes-title">Notes &amp; discussions</h2><span class="section-line" aria-hidden="true"></span></div>
-        <ul class="entry-list">
-  <li class="note-entry"><span class="entry-date">15 Apr 2026</span><a class="animated-link" href="https://www.erdosproblems.com/forum/thread/1209?order=oldest"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Prime and squarefree shifts · Erdős #1209</span></a></li>
-  <li class="note-entry"><span class="entry-date">13 Apr 2026</span><a class="animated-link" href="https://www.erdosproblems.com/forum/thread/1197"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Sets of positive measure · Erdős #1197</span></a></li>
-  <li class="note-entry"><span class="entry-date">21 Jan 2026</span><a class="animated-link" href="https://www.erdosproblems.com/forum/thread/347?order=newest"><span class="hover-arrow" aria-hidden="true">➸</span><span class="link-label">Subset sums and density · Erdős #347</span></a></li>
-</ul>
+        <h2 id="notes-title">Notes &amp; discussions</h2>
+        <ul>
+          <li><span>15 Apr 2026</span> · <a href="https://www.erdosproblems.com/forum/thread/1209?order=oldest">Prime and squarefree shifts · Erdős #1209</a></li>
+          <li><span>13 Apr 2026</span> · <a href="https://www.erdosproblems.com/forum/thread/1197">Sets of positive measure · Erdős #1197</a></li>
+          <li><span>21 Jan 2026</span> · <a href="https://www.erdosproblems.com/forum/thread/347?order=newest">Subset sums and density · Erdős #347</a></li>
+        </ul>
       </section>
-      <section class="contact-section" id="contact" aria-labelledby="contact-title">
-        <div class="section-heading"><span class="exhibit" aria-hidden="true">05</span><h2 id="contact-title">Contact</h2><span class="section-line" aria-hidden="true"></span></div>
-        <ul class="contact-links"><li><a href="https://github.com/ebarschkis">GitHub <span class="link-arrow" aria-hidden="true">➶</span></a></li><li><a href="https://x.com/ebarschkis">X / Twitter <span class="link-arrow" aria-hidden="true">➶</span></a></li><li><a href="https://www.erdosproblems.com/forum/user/ebarschkis">Erdős Problems <span class="link-arrow" aria-hidden="true">➶</span></a></li></ul>
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <ul>
+          <li><a href="https://github.com/ebarschkis">GitHub</a></li>
+          <li><a href="https://x.com/ebarschkis">X / Twitter</a></li>
+          <li><a href="https://www.erdosproblems.com/forum/user/ebarschkis">Erdős Problems</a></li>
+        </ul>
       </section>
     </main>
-    <footer class="footer">
-      <div class="footer-ornament" aria-hidden="true"><span></span><svg width="19" height="24" viewBox="0 0 19 24"><path d="m9.5 0 2.7 8.8L19 12l-6.8 3.2L9.5 24l-2.7-8.8L0 12l6.8-3.2Z" fill="currentColor"/></svg><span></span></div>
-      <div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="colophon.html">About this site <span aria-hidden="true">➶</span></a></div>
-      <div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <footer>
+      <hr>
+      <small>© 2026 Enrique Barschkis</small> · <a href="colophon.html">About this site</a>
     </footer>
   </div>
 </body>

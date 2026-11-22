@@ -3,51 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#942c36">
+  <meta name="theme-color" content="#f6efdc">
   <meta name="description" content="An introduction to elliptic curve discrete logarithms, Pollard’s rho, index calculus, and quantum algorithms, with an interactive curve explorer.">
   <title>Elliptic Curve Discrete Logarithms · Enrique Barschkis</title>
   <link rel="canonical" href="https://ebarschkis.github.io/elliptic-curve-discrete-logarithms.html">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css" integrity="sha384-3rdsX6e5mueWyoweR9NIVmtEsUkokpBT/0ALqKKIBMr9j4qhHkaIkAcGgsE6uVlp" crossorigin="anonymous">
-  <link rel="stylesheet" href="assets/article.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js" integrity="sha384-QFFtAGzvvj+bfgCGxXJlNZZR1nXEZgvG8tDLCCY1F19xl20WlfTYgguB4VcNdxYk" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
   <script defer src="assets/article.js"></script>
-  <link rel="stylesheet" href="assets/elliptic-rho/real-curve.css">
   <script src="assets/elliptic-rho/real-curve.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="document-page curve-heading">
-    <header class="document-header"><a href="./#articles">← Enrique Barschkis</a><span>Articles / 2026</span></header>
+  <a href="#main">Skip to content</a>
+  <div>
+    <header><a href="./#articles">← Enrique Barschkis</a> · <span>Articles / 2026</span></header>
   </div>
   <main id="main">
-    <article class="document-page curve-heading curve-prose math-article" data-math-root>
+    <article data-math-root>
       <h1>Elliptic Curve Discrete Logarithms</h1>
       <p>Ah, <a href="https://en.wikipedia.org/wiki/Discrete_logarithm">discrete logarithms</a>, my favorite mathematical and computational problem. People often look down at this problem, most people I have met describe it as a rather bland and boring problem. I guess they are right in a sense, but what makes this problem so special to me is that together with RSA it makes up 99% of all internet traffic encryption. This is why I believe this is one of the most important problems in all of mathematics, just because we have grown so dependent on it. Now before I go on a rant, it is important that you, the reader, to actually understand what this problem is even about. For the sake of argument, let's take another equally important problem in cryptography: <a href="https://en.wikipedia.org/wiki/Integer_factorization">Integer Factorization</a>. Now this is pretty easy to understand. So it is very easy to multiply $3$ and $5$ and then see that that equals 15, but how do we efficiently do it the other way around? Based off of $15$, how do I know what it's factors are? This is a very good example of a one-way function. Discrete logarithms on the other hand ask,  given \(Q=kG\), where \(k\) is the secret scalar or in other words our private key, \(G\) is the generator point, which is a public point that is chosen together with the curve, which also creates a cyclic subgroup of large order (in most cases a large prime order), \(Q\) is the public point, which also serves as our public key. Seems simple enough right? Well not really. Regular logarithms are pretty easy, but doing the same thing on a finite group like integers modulo a prime p or in this case points on a elliptic curve is hard, like really hard. In this article, I will mostly focus on the elliptic curve variant. The hard question now is, how do we get \(k\) while only knowing \(Q\), \(G\) and the curve parameters? Brute-forcing every possible point on the cyclic group costs \(O(n)\) in the worst case (where \(n\) is the order of the subgroup made by \(G\)).</p>
-      <figure class="curve-explorer" id="curve-explorer" aria-labelledby="real-curve-heading">
-        <div class="real-layout">
-          <div class="real-plot">
-            <div class="real-equation" id="real-equation" aria-live="polite"></div>
-            <svg id="real-curve-svg" viewBox="0 0 500 400" role="img" tabindex="0" aria-label="Interactive real elliptic curve plot" aria-describedby="real-plot-help">
+      <figure id="curve-explorer" aria-labelledby="real-curve-heading">
+        <div>
+          <div>
+            <div id="real-equation" aria-live="polite"></div>
+            <svg id="real-curve-svg" width="500" height="400" viewBox="0 0 500 400" role="img" tabindex="0" aria-label="Interactive real elliptic curve plot" aria-describedby="real-plot-help">
               <defs><clipPath id="real-curve-clip"><rect x="38" y="38" width="424" height="324"/></clipPath></defs>
-              <g id="real-grid"></g><g id="real-axes"></g><g id="real-paths" clip-path="url(#real-curve-clip)"></g>
+              <g id="real-grid" stroke="#aaa" stroke-width=".5"></g>
+              <g id="real-axes" font-size="12"><g id="real-axis-lines" stroke="currentColor"></g><g id="real-axis-labels"></g></g>
+              <g id="real-paths" fill="none" stroke="currentColor" stroke-width="2" clip-path="url(#real-curve-clip)"></g>
             </svg>
             <div id="real-scale"></div>
-            <p class="real-help" id="real-plot-help">Drag to pan. Use + / − to zoom, or the arrow keys when the plot is focused.</p>
+            <p id="real-plot-help">Drag to pan. Use + / − to zoom, or the arrow keys when the plot is focused.</p>
           </div>
-          <div class="real-controls">
+          <div>
             <h2 id="real-curve-heading">Curve explorer</h2>
-            <div class="real-selects">
-              <div><label for="real-preset">Preset</label><select id="real-preset">
+            <div>
+              <div><label for="real-preset">Preset</label> <select id="real-preset">
                 <option value="example">Example: a = −1, b = 1</option><option value="secp256k1">secp256k1 (Bitcoin)</option><option value="ed25519">Ed25519 (edwards25519)</option><option value="p256">P-256 (secp256r1)</option><option value="curve25519">Curve25519</option><option value="custom">Custom</option>
               </select></div>
-              <div><label for="real-form">Equation form</label><select id="real-form"><option value="short">Short Weierstrass</option><option value="montgomery">Montgomery</option><option value="edwards">Twisted Edwards</option></select></div>
+              <div><label for="real-form">Equation form</label> <select id="real-form"><option value="short">Short Weierstrass</option><option value="montgomery">Montgomery</option><option value="edwards">Twisted Edwards</option></select></div>
             </div>
-            <div class="real-coefficients"><div><label for="real-a" id="real-a-label">a</label><input id="real-a" value="-1" type="text" spellcheck="false" aria-describedby="real-input-error"></div><div><label for="real-b" id="real-b-label">b</label><input id="real-b" value="1" type="text" spellcheck="false" aria-describedby="real-input-error"></div></div>
+            <div><div><label for="real-a" id="real-a-label">a</label> <input id="real-a" value="-1" type="text" spellcheck="false" aria-describedby="real-input-error"></div><div><label for="real-b" id="real-b-label">b</label> <input id="real-b" value="1" type="text" spellcheck="false" aria-describedby="real-input-error"></div></div>
             <p id="real-input-error" role="alert"></p><p id="real-warning" role="status"></p>
-            <div class="real-buttons"><button id="real-zoom-in" type="button" aria-label="Zoom in on curve">+</button><button id="real-zoom-out" type="button" aria-label="Zoom out of curve">−</button><button id="real-reset" type="button">Reset view</button></div>
+            <div><button id="real-zoom-in" type="button" aria-label="Zoom in on curve">+</button><button id="real-zoom-out" type="button" aria-label="Zoom out of curve">−</button><button id="real-reset" type="button">Reset view</button></div>
             <p id="real-preset-note"></p>
           </div>
         </div>
@@ -59,6 +59,6 @@
       <p>As you probably noticed, I have been researching this problem way more that I should have. But I guess it is just my nature to obsess on very specific questions for years at a time. Another thing that should not go without mention is the quantum aspect. Since in 1994, a certain <a href="https://en.wikipedia.org/wiki/Peter_Shor">Peter Shor</a> <a href="https://en.wikipedia.org/wiki/Shor's_algorithm">discovered</a> that integer factorization as well as discrete logarithm problems naturally reduce to period finding problems which quantum computers could solve in polynomial-time (in this case very fast). Since then, there have been countless optimizations of this algorithm. My good friend <a href="https://orcid.org/0000-0003-2484-143X">Bartosz Naskręcki</a> has actually made a lot of progress on that front, so if you are interested in these types of circuit optimization using AI research agents, I really recommend checking out his results over at <a href="https://ecdsa.fail/">https://ecdsa.fail/</a> ! However I would not get too excited about this, until now the biggest number factored by Quantum Computers using Shor's algorithm is 21. We are decades away from a machine that is fault tolerant enough to run it. Heck, we don't even have the storage capabilities for such large integers on existing machines, let alone do arithmetic on them. Something I also noticed, is that because RSA has way larger key sizes, the arithmetic needed to perform Shor's on it will take way longer to be reliably doable on the machines than doing the EC modular arithmetic for breaking ECC. So while ECC has shorter keys, perhaps that wasn't such a good idea in the long run. I am betting that ECC will be broken before RSA using QCs.</p>
     </article>
   </main>
-  <div class="document-page curve-footer"><footer class="footer"><div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="./#articles">Back to articles ↑</a></div><div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div></footer></div>
+  <div><footer><small>© 2026 Enrique Barschkis</small> · <a href="./#articles">Back to articles ↑</a></footer></div>
 </body>
 </html>
