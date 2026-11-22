@@ -62,10 +62,6 @@ img, #real-curve-svg {
   height: auto;
 }
 
-.article-image {
-  width: min(100%, 29rem);
-}
-
 #real-curve-svg {
   touch-action: none;
 }
