@@ -80,14 +80,14 @@
     const width=500,height=400,pad=38,w=width-2*pad,h=height-2*pad;
     const yr=view.span*h/w,lo=view.x-view.span/2,hi=view.x+view.span/2,bottom=view.y-yr/2,top=view.y+yr/2;
     const px=x=>pad+(x-lo)/view.span*w,py=y=>pad+(top-y)/yr*h;
-    const grid=$('real-grid'),axisLines=$('real-axis-lines'),axisLabels=$('real-axis-labels'),curves=$('real-paths');grid.replaceChildren();axisLines.replaceChildren();axisLabels.replaceChildren();curves.replaceChildren();
+    const grid=$('real-grid'),axes=$('real-axes'),curves=$('real-paths');grid.replaceChildren();axes.replaceChildren();curves.replaceChildren();
     const rough=view.span/8,base=10**Math.floor(Math.log10(rough)),step=[1,2,5,10].map(x=>x*base).find(x=>x>=rough);
-    for(let x=Math.ceil(lo/step)*step;x<=hi;x+=step){grid.append(node('line',{x1:px(x),x2:px(x),y1:pad,y2:height-pad}));axisLabels.append(node('text',{x:px(x),y:height-15,'text-anchor':'middle'},fmt(x)));}
-    for(let y=Math.ceil(bottom/step)*step;y<=top;y+=step){grid.append(node('line',{x1:pad,x2:width-pad,y1:py(y),y2:py(y)}));axisLabels.append(node('text',{x:pad-7,y:py(y)+4,'text-anchor':'end'},fmt(y)));}
-    if(lo<=0&&hi>=0)axisLines.append(node('line',{x1:px(0),x2:px(0),y1:pad,y2:height-pad}));
-    if(bottom<=0&&top>=0)axisLines.append(node('line',{x1:pad,x2:width-pad,y1:py(0),y2:py(0)}));
+    for(let x=Math.ceil(lo/step)*step;x<=hi;x+=step){grid.append(node('line',{x1:px(x),x2:px(x),y1:pad,y2:height-pad}));axes.append(node('text',{x:px(x),y:height-15,'text-anchor':'middle'},fmt(x)));}
+    for(let y=Math.ceil(bottom/step)*step;y<=top;y+=step){grid.append(node('line',{x1:pad,x2:width-pad,y1:py(y),y2:py(y)}));axes.append(node('text',{x:pad-7,y:py(y)+4,'text-anchor':'end'},fmt(y)));}
+    if(lo<=0&&hi>=0)axes.append(node('line',{x1:px(0),x2:px(0),y1:pad,y2:height-pad}));
+    if(bottom<=0&&top>=0)axes.append(node('line',{x1:pad,x2:width-pad,y1:py(0),y2:py(0)}));
     const scaled=m.sx!==1||m.sy!==1;
-    axisLabels.append(node('text',{x:width-15,y:height-15},scaled?'X':'x'),node('text',{x:14,y:22},scaled?'Y':'y'));
+    axes.append(node('text',{x:width-15,y:height-15},scaled?'X':'x'),node('text',{x:14,y:22},scaled?'Y':'y'));
     if(m.form==='montgomery'&&m.b===0)return;
     const cuts=breaks(m,lo,hi);
     for(let j=1;j<cuts.length;j++){

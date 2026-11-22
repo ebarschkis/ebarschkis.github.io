@@ -4,23 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Enrique Barschkis on a counterexample to Erdős Problem 1197 and its formalization in Lean.">
-  <meta name="theme-color" content="#f6efdc">
+  <meta name="theme-color" content="#942c36">
   <title>Erdős Problem #1197 · Enrique Barschkis</title>
   <link rel="canonical" href="https://ebarschkis.github.io/erdos-1197.html">
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="styles.css?v=article-images">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css" integrity="sha384-3rdsX6e5mueWyoweR9NIVmtEsUkokpBT/0ALqKKIBMr9j4qhHkaIkAcGgsE6uVlp" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/article.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js" integrity="sha384-QFFtAGzvvj+bfgCGxXJlNZZR1nXEZgvG8tDLCCY1F19xl20WlfTYgguB4VcNdxYk" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
   <script defer src="assets/article.js"></script>
 </head>
 <body>
-  <div>
-    <header><a href="./#articles">← Enrique Barschkis</a> · <span>Articles / 2026</span></header>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="document-page">
+    <header class="document-header"><a href="./#articles">← Enrique Barschkis</a><span>Articles / 2026</span></header>
     <main id="main">
-      <article data-math-root>
+      <article class="math-article" data-math-root>
         <h1>Erdős Problem #1197</h1>
-        <a href="assets/erdos-1197-disproved.png"><img src="assets/erdos-1197-disproved.png" width="384" height="204" alt="Erdős Problems entry #1197 marked DISPROVED (LEAN), with the problem statement, background results, and credit to ebarschkis for a counterexample using a variant of the Buczolich-Mauldin construction."></a>
+        <img class="article-image" src="assets/erdos-1197-disproved.png" width="1187" height="630" alt="Erdős Problems entry #1197 marked DISPROVED (LEAN), with the problem statement, background results, and credit to ebarschkis for a counterexample using a variant of the Buczolich-Mauldin construction.">
         <section id="problem" aria-labelledby="problem-heading">
           <h2 id="problem-heading">1.) The Beginning?</h2>
           <p>So you start out with a measurable set \(E\) inside \((0,\infty)\) that has positive measure (measure just means the interval's length). Now the measure extends that idea to sets with gaps (the gaps can be arbitrarily widely scattered). For any measurable set \(E\) of positive real numbers with positive measure, let us consider the sets \(rE=\{re:e\in E\}\), where \(r\) ranges over <strong>all</strong> positive integers. J.A. Haight then conjectured whether every sufficiently late multiple of any positive real number \(x\) must belong to some \(rE\), for almost every choice of \(x\). Erdős later mentioned this problem in his 1980 paper "<a href="https://combinatorica.hu/~p_erdos/1980-03.pdf">A SURVEY OF PROBLEMS IN COMBINATORIAL NUMBER THEORY</a>".</p>
@@ -42,7 +44,7 @@
           <p>I then fed the counterexample into the new Aristotle models, which then formally verified it (although with an assumption). I then uploaded the solutions to the forum and noted the remaining Lean gap which was an implementation of the prime number theorem. Luckily, Tom de Groot, who had been extensively working on a Lean implementation of the PNT, was there to help and after two days managed to complete the Lean proof.</p>
         </section>
         <section id="hard-part" aria-labelledby="hard-part-heading">
-          <h2 id="hard-part-heading">4.) The pieces are moving <a href="https://www.youtube.com/watch?v=9b62PRo8hKs" aria-label="Watch the reference for The pieces are moving on YouTube" title="The pieces are moving — YouTube">(reference)</a></h2>
+          <h2 id="hard-part-heading">4.) The pieces are moving <a class="heading-reference" href="https://www.youtube.com/watch?v=9b62PRo8hKs" aria-label="Watch the reference for The pieces are moving on YouTube" title="The pieces are moving — YouTube"><span aria-hidden="true">➶</span></a></h2>
           <p>The main difficulty lies in the fact that we have freedom to choose \(r\). Finding a large \(n\) with \(nx\) not belonging to \(E\) barely matters if \(nx\) might still belong to \(2E\), \(E\), \(4E\), etc. Hence, we need a no-go set \(F\) that all the copies \(rE\) avoid, but that the multiples of every \(x\) in some interval keep hitting.</p>
           <p>Intuitively, this suggests that we should build \(F\) first and then remove every point whose multiples can reach \(F\) from a starting interval. After removing those points, the remaining set will be our \(E\), however the problem then becomes that we need to keep enough of that interval to ensure the measure is positive. To solve this, we can make Buczolich and Mauldin's work do the heavy lifting for us.</p>
           <p>Take \[I=\left(\frac89,1\right), \qquad J=\left[\frac{16}{25},\frac23\right].\]</p>
@@ -59,7 +61,7 @@
           <p>Each \(n_kx\) lies in \(F\), which misses every \(rE\). So as a consequence, for every \(x\in J\), there is a infinite amount of \(n\) such that \(nx\notin rE\) for every integer \(r\geq 1\).  And now that we have demonstrated that infinitely many such integers exist for every \(x\in J\), the desired covering property fails throughout \(J\), giving us a negative answer to the conjecture.</p>
         </section>
         <section id="result" aria-labelledby="result-heading">
-          <h2 id="result-heading">5.) And Whither Then? <a href="https://tolkiengateway.net/wiki/The_Road_Goes_Ever_On_(song)#:~:text=and%20errands%20meet.-,And%20whither%20then%3F,-I%20cannot%20say" aria-label="Read And whither then? in The Road Goes Ever On on Tolkien Gateway" title="The Road Goes Ever On — Tolkien Gateway">(reference)</a></h2>
+          <h2 id="result-heading">5.) And Whither Then? <a class="heading-reference" href="https://tolkiengateway.net/wiki/The_Road_Goes_Ever_On_(song)#:~:text=and%20errands%20meet.-,And%20whither%20then%3F,-I%20cannot%20say" aria-label="Read And whither then? in The Road Goes Ever On on Tolkien Gateway" title="The Road Goes Ever On — Tolkien Gateway"><span aria-hidden="true">➶</span></a></h2>
           <p>I have now clearly demonstrated a negative answer to Haight's 1980 problem by showing that the set \(E\) has positive measure, but every \(x\) in the interval \([16/25,2/3]\) has infinitely many multiples outside every integer dilation of \(E\). I just simply repurposed the Buczolich–Mauldin shells through the construction \(E=I\setminus\Phi(F)\) and developed a counterexample with the help of a advanced OpenAI model and an initial formalization assisted by Harmonic's "Aristotle" autoformalization models. I would also like to thank Tom de Groot for supplying the subsequent work resolving the original formalization gap and his work on the PNT+ project.</p>
           <p>My paper: <a href="assets/erdos-1197-paper.pdf">A negative answer to an eventual covering question for rational dilates</a></p>
           <p><a href="https://github.com/Tomodovodoo/Erdos_1197">Lean formalization and Tom de Groot's completion</a></p>
@@ -68,7 +70,7 @@
         </section>
       </article>
     </main>
-    <footer><small>© 2026 Enrique Barschkis</small> · <a href="./#articles">Back to articles ↑</a></footer>
+    <footer class="footer"><div class="footer-line"><small>© 2026 Enrique Barschkis</small><a href="./#articles">Back to articles ↑</a></div><div class="printer-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div></footer>
   </div>
 </body>
 </html>
